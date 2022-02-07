@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package blog;
+option go_package = "blog/blogpb";
+
+message Post {
+  string id = 1;
+  string author_id = 2;
+  string title = 3;
+  string content = 4;
+}
+
+message CreatePostRequest {
+  Post post = 1;
+}
+
+message CreatePostResponse {
+  Post post = 1;
+}
+
+message ReadPostRequest {
+  string post_id = 1;
+}
+
+message ReadPostResponse {
+  Post post = 1;
+}
+
+message UpdatePostRequest {
+  Post post = 1;
+}
+
+message UpdatePostResponse {
+  Post post = 1;
+}
+
+message DeletePostRequest {
+  string post_id = 1;
+}
+
+message DeletePostResponse {
+  bool result = 1;
+}
+
+message ListPostsRequest {
+}
+
+message ListPostsResponse {
+  Post post = 1;
+}
+
+service BlogService {
+  rpc CreatePost(CreatePostRequest) returns (CreatePostResponse) {};
+  rpc ReadPost(ReadPostRequest) returns (ReadPostResponse) {}; // Return not found if not found
+  rpc UpdatePost(UpdatePostRequest) returns (UpdatePostResponse) {}; // Return not found if not found
+  rpc DeletePost(DeletePostRequest) returns (DeletePostResponse) {}; // Return not found if not found
+  rpc ListPosts(ListPostsRequest) returns (stream ListPostsResponse) {};
+}
